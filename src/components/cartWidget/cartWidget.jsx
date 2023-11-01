@@ -4,9 +4,11 @@ import { ShoppingCartOutlined } from "@ant-design/icons";
 const CartWidget = () => {
   return (
     <>
-      <Badge count={12}>
-        <Avatar shape="square" size="large" icon={<ShoppingCartOutlined />} />
-      </Badge>
+      <card>
+        <Badge count={100}>
+          <Avatar shape="square" size="large" icon={<ShoppingCartOutlined />} />
+        </Badge>
+      </card>
     </>
   );
 };

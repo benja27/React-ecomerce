@@ -4,16 +4,16 @@ import { NavLink } from "react-router-dom";
 
 const NavBar = () => {
   const arrayDeCategorias = [
-    "electronics",
-    "jewelery",
-    "men's clothing",
-    "women's clothing",
+    "electronica",
+    "joyeria",
+    "Ropa de Hombre",
+    "ropa de mujer",
   ];
 
   return (
     <div className={style.container}>
       <NavLink to={"/"}>
-        <h1>VIP Ecomerce</h1>
+        <h1>VIP Ecommerce</h1>
       </NavLink>
       {arrayDeCategorias.map((cat, index) => (
         <NavLink to={`category/${cat}`} key={index}>

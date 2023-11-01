@@ -23,6 +23,7 @@ const ItemListContainer = ({ greeting }) => {
           </div>
         ))}
       </div>
+      <hr />
     </>
   );
 };
