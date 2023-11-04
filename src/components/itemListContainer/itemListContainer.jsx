@@ -1,31 +1,56 @@
-import { Link } from "react-router-dom";
-import { useEffect, useState } from "react";
+import { useState, useEffect } from "react";
+import Item from "../../components/item/item";
+import Spinner from "react-bootstrap/Spinner";
+import { useParams } from "react-router-dom";
 
-const ItemListContainer = ({ greeting }) => {
+const ItemDetailContainer = () => {
   const [products, setProducts] = useState([]);
+  const { nombreCategoria } = useParams();
 
   useEffect(() => {
-    fetch("https://fakestoreapi.com/products?limit=9")
+    let url = nombreCategoria
+      ? `https://fakestoreapi.com/products/category/${nombreCategoria}`
+      : "https://fakestoreapi.com/products ";
+    fetch(url)
       .then((res) => res.json())
-      .then((json) => setProducts(json))
-      .catch((error) => console.error(error.menssage));
-  }, []);
+      .then((data) => setProducts(data));
+  }, [nombreCategoria]);
 
   return (
+    
     <>
-      <h2 className="saludo">{greeting}</h2>
-      <div>
-        {products.map((prod) => (
-          <div key={prod.id}>
-            <img src={prod.image} width={200} />
-            <h2>{prod.title}</h2>
-            <Link to={`/item/${prod.id}`}>Ver mas</Link>
-          </div>
-        ))}
-      </div>
-      <hr />
+      {products.length > 0 ? (
+        <>
+          {products.map((pr) => (
+            <Item producto={pr} key={pr.id} />
+          ))}
+        </>
+      ) : (
+        <Spinner
+          animation="border"
+          variant="danger"
+          className="custom-spinner"
+        />
+      )}
     </>
   );
 };
 
-export default ItemListContainer;
+export default ItemDetailContainer;
+
+// useEffect(() => {
+//   const fetchData = async () => {
+//     try {
+//       const url = nombreCategoria
+//         ? `https://fakestoreapi.com/products/category/${nombreCategoria}`
+//         : "https://fakestoreapi.com/products";
+//       const response = await fetch(url);
+//       const data = await response.json();
+//       setProducts(data);
+//     } catch (error) {
+//       console.error(error);
+//     }
+//   };
+
+//   fetchData();
+// }, [nombreCategoria]);

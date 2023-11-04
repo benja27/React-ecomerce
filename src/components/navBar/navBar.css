@@ -1,0 +1,23 @@
+.bg-custom {
+  position: fixed; 
+  top: 0; 
+  left: 0;
+  right: 0; 
+  background-color: #54b8fc; 
+  font-size: 27px;
+  font-weight: 630;
+  padding: 10px 0;  
+  border-bottom: 5px solid #080101; 
+  z-index: 500; 
+  transition: background-color 0.3s; 
+}
+
+.container a {
+  color: #fff; 
+  transition: color 0.3s; 
+  margin: 0 50px;
+}
+
+.container .logo:hover {
+  transform: scale(1.1);
+}
