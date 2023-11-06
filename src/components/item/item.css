@@ -41,7 +41,7 @@
   text-overflow: ellipsis;
 }
 
-.itemimage-container {
+.itemimagecontainer {
   height: 60%;
 }
 
@@ -50,7 +50,7 @@
   max-height: 100%;
 }
 
-.custom-link {
+.customlink {
   border: 1px solid hsl(0, 0%, 100%);
   padding: 5px 10px;
   background-color: #1ad3e0;
@@ -61,6 +61,6 @@
   border-radius: 5px;
 }
 
-.custom-link:hover {
+.customlink:hover {
   background-color: #0f02ce;
 }
