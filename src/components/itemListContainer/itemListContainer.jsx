@@ -38,19 +38,19 @@ const ItemDetailContainer = () => {
 
 
 
-  useEffect(() => {   
-    console.log('hola')
+  useEffect(() => {       
     if (nombreCategoria !== undefined) {
+      console.log('filtro')
       filtrar();
     } else {
+      console.log('no filtro')
       fetchData();
+      console.log(filtrado)
     }
     
-  }, [nombreCategoria]);
+  }, [nombreCategoria ]);
   
-  show = filtrado.length > 0 ? filtrado : products;
-  console.log(filtrado)
-  console.log(show)
+  show = nombreCategoria !== undefined ? filtrado : products;
   
 
   return (    
