@@ -8,31 +8,45 @@ import { collection, addDoc, getDocs } from "firebase/firestore";
 const ItemDetailContainer = () => {
   const [products, setProducts] = useState([]);
   const [filtrado, setFiltrado] = useState([]);
-  // const [categoria, setCategoria] = useState('');
+  const [categoria, setCategoria] = useState('');
   const { nombreCategoria } = useParams();
 
-  // nombreCategoria && setCategoria(nombreCategoria);  
+  
+
   let show = [];
 
+  const fetchData = async () => {
+    const data = await getDocs(collection(db, "products"));
+    const productsArray = []
+    
+    data.forEach((doc) => {
+      productsArray.push(doc.data())
+    });
+    setProducts( productsArray )           
+  } 
+
+  const filtrar = async () => {
+    const data = await getDocs(collection(db, "products"));
+    const productsArray = []
+    
+    data.forEach((doc) => {
+      productsArray.push(doc.data())
+    });
+    
+    let filtrado = setFiltrado(productsArray.filter((pr) => pr.category === nombreCategoria));      
+  }
+
+
+
   useEffect(() => {   
-
-    console.log('using efect')
-
+    console.log('hola')
+    if (nombreCategoria !== undefined) {
+      filtrar();
+    } else {
+      fetchData();
+    }
     
-
-    const fetchData = async () => {
-      const data = await getDocs(collection(db, "products"));
-      const productsArray = []
-      
-      data.forEach((doc) => {
-        productsArray.push(doc.data())
-      });
-      setProducts( productsArray )       
-      nombreCategoria && setFiltrado(products.filter((pr) => pr.category === nombreCategoria));      
-    } 
-    fetchData();        
-    
-  }, []);
+  }, [nombreCategoria]);
   
   show = filtrado.length > 0 ? filtrado : products;
   console.log(filtrado)
@@ -65,20 +79,3 @@ const ItemDetailContainer = () => {
 
 export default ItemDetailContainer;
 
-// useEffect(() => {
-//   const fetchData = async () => {
-//     try {
-//       const url = nombreCategoria
-//         ? `https://fakestoreapi.com/products/category/${nombreCategoria}`
-//         : "https://fakestoreapi.com/products";
-//       const response = await fetch(url);
-//       const data = await response.json();
-//       setProducts(data);
-//     } catch
-//  (error) {
-//       console.error(error);
-//     }
-//   };
-
-//   fetchData();
-// }, [nombreCategoria]);
