@@ -7,36 +7,48 @@ import { collection, addDoc, getDocs } from "firebase/firestore";
 
 const ItemDetailContainer = () => {
   const [products, setProducts] = useState([]);
+  const [filtrado, setFiltrado] = useState([]);
+  // const [categoria, setCategoria] = useState('');
   const { nombreCategoria } = useParams();
 
-      
-  
+  // nombreCategoria && setCategoria(nombreCategoria);  
+  let show = [];
 
-  useEffect(() => {
-    console.log(123)
+  useEffect(() => {   
+
+    console.log('using efect')
+
+    
 
     const fetchData = async () => {
       const data = await getDocs(collection(db, "products"));
+      const productsArray = []
       
-      // console.log(data)
       data.forEach((doc) => {
-        // console.log(doc.data()); 
-        setProducts( prevProducts => [...prevProducts, doc.data()] )       
+        productsArray.push(doc.data())
       });
-      // setProducts(data)
-      // setProducts(data.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
+      setProducts( productsArray )       
+      nombreCategoria && setFiltrado(products.filter((pr) => pr.category === nombreCategoria));      
     } 
-    fetchData();    
-
+    fetchData();        
+    
   }, []);
+  
+  show = filtrado.length > 0 ? filtrado : products;
+  console.log(filtrado)
+  console.log(show)
+  
 
-  return (
+  return (    
+
+
+
 
     <div className="flex flex-wrap justify-center gap-4 mt-4" >
       {/* {console.log(products)}     */}
-      {products.length > 0 ? (
+      {show.length > 0 ? (
         <>
-          {products.map((pr) => (
+          {show.map((pr) => (
             <Item producto={pr} key={pr.id} />
           ))}
         </>
